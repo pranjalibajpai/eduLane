@@ -1,9 +1,20 @@
-const express = require('express');
-const bodyParser= require( 'body-parser');
-const mongoose= require( 'mongoose');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from'mongoose';
+import postRoutes from './routes/posts.js';
 
 const app = express();
-app.use(bodyParser.json());
 
+app.use(bodyParser.json({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
+
+const CONNECTION_URL = "mongodb+srv://pranjali-admin:pranjali@cluster0.hlgup.mongodb.net/eduDB";
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log('Server started on ', PORT));
+
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`)))
+  .catch((error) => console.log(`${error} did not connect`));
+
+mongoose.set('useFindAndModify', false);
+
+app.use('/posts', postRoutes);
