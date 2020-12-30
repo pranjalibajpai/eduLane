@@ -5,6 +5,18 @@ import PostMessage from '../models/postMessage.js';
 
 const router = express.Router();
 
+export const getPostsByTags = async(req, res) => {
+    const tag = req.params.tagName;
+    try{
+        const posts = await Post.find({ hashtags: {$in: [tag] }});
+        res.status(200).json(posts);
+    }
+    catch(error){
+        res.status(404).json({message: error.message});
+        console.log(error.message);
+    }
+}
+
 export const getPosts = async (req, res) => { 
     try {
         const postMessages = await PostMessage.find();
@@ -24,19 +36,6 @@ export const getPost = async (req, res) => {
         res.status(200).json(post);
     } catch (error) {
         res.status(404).json({ message: error.message });
-    }
-}
-
-//controller to get post by tags
-export const getPostsByTags = async(req, res) => {
-    const tag = req.params.tagName;
-    try{
-        const posts = await Post.find({ hashtags: {$in: [tag] }});
-        res.status(200).json(posts);
-    }
-    catch(error){
-        res.status(404).json({message: error.message});
-        console.log(error.message);
     }
 }
 
