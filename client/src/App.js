@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //dispatch an action
 import { useDispatch } from 'react-redux';
 import { getPosts } from './actions/posts';
-
+import Forms from './components/Forms';
 function App() {
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,6 +16,7 @@ function App() {
   return (
    <div>
     <AppNavbar />
+    <Forms />
    </div>
   );
 }
