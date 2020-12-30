@@ -27,6 +27,19 @@ export const getPost = async (req, res) => {
     }
 }
 
+//controller to get post by tags
+export const getPostsByTags = async(req, res) => {
+    const tag = req.params.tagName;
+    try{
+        const posts = await Post.find({ hashtags: {$in: [tag] }});
+        res.status(200).json(posts);
+    }
+    catch(error){
+        res.status(404).json({message: error.message});
+        console.log(error.message);
+    }
+}
+
 export const createPost = async (req, res) => {
     const { title, post_content, selectedFile, author, tags } = req.body;
 
