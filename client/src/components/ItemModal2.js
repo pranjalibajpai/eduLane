@@ -4,8 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { useDispatch } from 'react-redux';
 
 import { TextField,  Paper } from '@material-ui/core';
+// import { getPostByTags,fetchPosts } from '../api';
+
+import { getPostsByTags } from '../actions/posts';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -26,7 +30,8 @@ const useStyles = makeStyles(theme => ({
 
 const ModalExample2 = (props) => {
 
-   
+    const dispatch = useDispatch();
+    
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -42,13 +47,20 @@ const ModalExample2 = (props) => {
     buttonLabel,
     className
   } = props;
-
   const [modal, setModal] = useState(false);
-
+  const [tag, setTag]= useState('');
   const toggle = () => setModal(!modal);
-  const submit =() =>{
+  const clear = () => {
+    setTag({tag: ''});
+  };
+  const submit  = async (e) => {
+    e.preventDefault();
+    dispatch(getPostsByTags(tag));
+    // dispatch(getPosts());
+    clear();
 
-  }
+    console.log(tag);
+  };
   return (
     
         <div>
@@ -74,7 +86,9 @@ const ModalExample2 = (props) => {
                     
                     <Paper className={classes.paper}>
                     <form onSubmit={submit}>
-                        <TextField name="tag" variant="outlined" label="Enter Topic Tag" fullWidth /> 
+                        <TextField name="tag" variant="outlined" label="Enter Topic Tag" fullWidth value={tag}
+                        onChange={(e) => { setTag( e.target.value ) }}
+                        /> 
                         
                         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Find</Button>
                         {/* <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button> */}
