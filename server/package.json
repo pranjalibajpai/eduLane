@@ -1,31 +1,19 @@
 {
-  "name": "server",
+  "name": "mern-stack-api",
   "version": "1.0.0",
-  "description": "MERN Stack based collabortion platform",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "cd ../client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "start": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pranjalibajpai/eduLane.git"
-  },
-  "author": "Pranjali Bajpai",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pranjalibajpai/eduLane/issues"
-  },
-  "homepage": "https://github.com/pranjalibajpai/eduLane#readme",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.11.9"
+    "mongoose": "^5.9.29"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
